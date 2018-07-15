@@ -36,13 +36,20 @@ class Dungeon():
 
     '''Checks the dungeon for validity, eg: blocks out of bounds'''
     def is_valid(self):
-        for row in range(self.height):
-            for col in range(self.width):
-                if self.map[row][col] != self.fill:
-                    if row == 0 or row > self.height - 2:
-                        return False
-                    if col == 0 or col > self.width - 2:
-                        return False
+
+        for pix in self.map[0]:
+            if pix != self.fill:
+                return False
+                
+        for pix in self.map[-1]:
+            if pix != self.fill:
+                return False
+
+        for row in range(self.height-2):
+            for col in [0, -1]:
+                if self.map[row+1][col] != self.fill:
+                    return False
+
         return True
 
 
@@ -110,6 +117,8 @@ class Dungeon():
 
                     elif self.is_corner(col, row):
                         self.rendered_map[row][col] = "+"
+
+                    # self.rendered_map[row][col] = "#"
                 
                 elif self.map[row][col] == " ":
                     self.rendered_map[row][col] = " "
@@ -191,8 +200,8 @@ class Dungeon():
         # find all suitable positions in the given room
         for row in range(top_leftPos[1], bottom_rightPos[1]):
             for col in range(top_leftPos[0], bottom_rightPos[0]):
-                if self.is_on_wall(col, row):
-                    possible_locations.append([col, row])
+                # if self.is_on_wall(col, row):
+                possible_locations.append([col, row])
 
         num_items = randint(min_items, max_items)
         if len(possible_locations) <= num_items:
