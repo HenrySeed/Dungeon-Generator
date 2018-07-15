@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*__pycache__
 
 # C extensions
 *.so
@@ -33,3 +34,5 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt.
+
+*.DS_Store
